@@ -85,6 +85,30 @@
       subscribers.delete(sub);
     }
     
+    // compare snapshots to avoid unnecessary notifications
+    function valuesEqual(a, b) {
+      if (Object.is(a, b)) return true;
+      if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
+        return shallowObjectEqual(a, b);
+      }
+      return false;
+
+      function shallowObjectEqual(a, b) {
+        var keysA = Object.keys(a);
+        var keysB = Object.keys(b);
+        if (keysA.length !== keysB.length) return false;
+
+        for (var i = 0; i < keysA.length; i++) {
+          var key = keysA[i];
+          if (!Object.prototype.hasOwnProperty.call(b, key)) return false;
+          if (!Object.is(a[key], b[key])) return false;
+        }
+
+        return true;
+      }
+    }
+
+
     //schedule notification on next animation drawing frame / microtask / setTimeout
     function scheduleNotify() {
       if (scheduled) return;
@@ -117,7 +141,7 @@
           continue;
         }
 
-        if (next === sub.prev) continue;
+        if (valuesEqual(next, sub.prev)) continue;
         sub.prev = next;
 
         try {

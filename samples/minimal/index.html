@@ -51,18 +51,13 @@
 
     button:hover {
       background: #005ac1;
-      transform: translateY(-1px);
-    }
-
-    button:active {
-      transform: translateY(1px);
     }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>TinyReactive Counter</h1>
-    <div class="counter-value" id="counter">0</div>
+    <div class="counter-value" id="counter"></div>
     <button id="increment">Increment</button>
   </div>
 
@@ -82,7 +77,7 @@
     // update the state when the button is clicked
     incrementButton.addEventListener('click', function () {
       const current = store.get();
-      store.set({ count: current.count + 1 });
+      store.patch({ count: current.count + 1 });
     });
   </script>
 </body>

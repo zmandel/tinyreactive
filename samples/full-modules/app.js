@@ -16,23 +16,47 @@ const elements = {
   list: document.querySelector('[data-todo-list]'),
   emptyState: document.querySelector('[data-empty-state]'),
   summary: document.querySelector('[data-summary]'),
-  filters: Array.from(document.querySelectorAll('[data-filter]'))
+  filters: Array.from(document.querySelectorAll('[data-filter]')),
+  logList: document.querySelector('[data-log-list]')
 };
 
 if (Object.values(elements).some((value) => value == null)) {
   throw new Error('App markup missing required data attributes.');
 }
 
+function log(message) {
+  const timestamp = new Date();
+  const item = document.createElement('div');
+  item.className = 'notifications__item';
+  const timeText = timestamp.toLocaleTimeString([], {
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+  item.textContent = `${timeText}  ${message}`;
+
+  elements.logList.append(item);
+  const scroller = elements.logList.parentElement ?? elements.logList;
+  scroller.scrollTop = scroller.scrollHeight;
+}
+
 // --- Rendering helpers ----------------------------------------------------
 
 function renderTodoList({ todos, filter }) {
+  log('todo list');
   const visibleTodos = todos.filter((todo) => {
-    if (filter === 'active') return !todo.done;
-    if (filter === 'completed') return todo.done;
-    return true;
+    switch (filter) {
+      case 'active':
+        return !todo.done;
+      case 'completed':
+        return todo.done;
+      default:
+        return true;
+    }
   });
 
-  elements.list.innerHTML = '';
+  elements.list.replaceChildren();
 
   if (visibleTodos.length === 0) {
     elements.emptyState.hidden = false;
@@ -72,7 +96,8 @@ function renderTodoList({ todos, filter }) {
 }
 
 function renderSummary(todos) {
-  const completed = todos.filter((todo) => todo.done).length;
+  log('summary');
+  const completed = todos.reduce((count, todo) => (todo.done ? count + 1 : count), 0);
   const total = todos.length;
   const pending = total - completed;
 
@@ -83,16 +108,22 @@ function renderSummary(todos) {
 }
 
 function renderDraftInput(draft) {
+  log('draft input');
   if (elements.draftInput.value !== draft) {
     elements.draftInput.value = draft;
   }
 }
 
 function renderFilters(activeFilter) {
+  log('filters');
   for (const button of elements.filters) {
     const isActive = button.dataset.filter === activeFilter;
     button.setAttribute('aria-pressed', String(isActive));
   }
+}
+
+function logNewSection() {
+  log("----------");
 }
 
 // --- Subscriptions --------------------------------------------------------
@@ -101,7 +132,10 @@ store.subscribe(renderTodoList, (state) => ({ todos: state.todos, filter: state.
 store.subscribe(renderSummary, (state) => state.todos);
 store.subscribe(renderDraftInput, (state) => state.draft);
 store.subscribe(renderFilters, (state) => state.filter);
+store.subscribe(logNewSection);
 
+//since stores notify synchronously on initialization (above), the app has finished rendering here,
+//so show the app by removing the loading attribute
 document.body.removeAttribute('data-app-loading');
 
 // --- Event wiring ----------------------------------------------------------
