@@ -3,11 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title>TinyReactive Samples</title>
+	<style>
+		body { font-family: Arial, sans-serif; margin: 0; background: #f3f5f9; color: #1e2330; }
+		main { max-width: 720px; margin: 6rem auto; padding: 0 2rem; }
+		h1 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
+		.samples { display: grid; gap: 1.5rem; }
+		.card { background: #fff; border-radius: 12px; padding: 1.75rem; box-shadow: 0 10px 25px rgba(30, 35, 48, 0.1); }
+		.card h2 { margin: 0 0 0.5rem; font-size: 1.25rem; }
+		.card p { margin: 0 0 1.25rem; line-height: 1.5; }
+		.card a { display: inline-block; padding: 0.6rem 1.25rem; border-radius: 999px; background: #5865f2; color: #fff; text-decoration: none; font-weight: bold; }
+		.card a:hover { background: #4752c4; }
+	</style>
 </head>
 <body>
-	<nav>
-		<a href="samples/minimal/index.html">Minimal Sample</a>
-		<a href="samples/full-modules/index.html">Full Modules Sample</a>
-	</nav>
+	<main>
+		<h1>TinyReactive Sample Gallery</h1>
+		<section class="samples">
+			<article class="card">
+				<h2>minimal</h2>
+				<p>A stripped-down starter that highlights the bare essentials of the reactive store.</p>
+				<a href="samples/minimal/index.html">Open sample</a>
+			</article>
+			<article class="card">
+				<h2>full-modules</h2>
+				<p>A modular demo showing routing, styles, and a richer component structure working together.</p>
+				<a href="samples/full-modules/index.html">Open sample</a>
+			</article>
+		</section>
+	</main>
 </body>
 </html>
