@@ -1,4 +1,4 @@
-import { createStore } from './store.module.js';
+import { createStore } from '../../src/store.module.js';
 
 const store = createStore({
   todos: [
@@ -101,6 +101,8 @@ store.subscribe(renderTodoList, (state) => ({ todos: state.todos, filter: state.
 store.subscribe(renderSummary, (state) => state.todos);
 store.subscribe(renderDraftInput, (state) => state.draft);
 store.subscribe(renderFilters, (state) => state.filter);
+
+document.body.removeAttribute('data-app-loading');
 
 // --- Event wiring ----------------------------------------------------------
 

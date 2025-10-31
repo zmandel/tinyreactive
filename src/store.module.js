@@ -1,4 +1,4 @@
-import '../../src/store.js';
+import './store.js';
 
 const api = globalThis.StoreLib;
 

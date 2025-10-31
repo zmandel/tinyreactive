@@ -9,7 +9,11 @@
 
   // 2) Support AMD and CJS when this is used as a module file
   if (typeof define === 'function' && define.amd) { define([], function () { return api; }); }
-  else if (typeof module === 'object' && module.exports) { module.exports = api; }
+  else if (typeof module === 'object' && module.exports) {
+    module.exports = api;
+    module.exports.createStore = api.createStore;
+    module.exports.default = api;
+  }
 
 })(typeof globalThis !== 'undefined' ? globalThis
    : typeof window !== 'undefined' ? window
