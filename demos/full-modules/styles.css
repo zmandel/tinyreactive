@@ -1,0 +1,220 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --border: 1px solid rgba(0, 0, 0, 0.08);
+  --border-dark: 1px solid rgba(255, 255, 255, 0.2);
+  --panel-bg: rgba(255, 255, 255, 0.82);
+  --panel-bg-dark: rgba(0, 0, 0, 0.45);
+  --accent: #2563eb;
+  --accent-dark: #93c5fd;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem 3.5rem;
+  background: radial-gradient(circle at top, #eff6ff 0%, #dbeafe 35%, #bfdbfe 100%);
+  background-attachment: fixed;
+  color: #1f2937;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: radial-gradient(circle at top, #0f172a 0%, #1e293b 40%, #111827 100%);
+    color: #f9fafb;
+  }
+}
+
+.app {
+  width: min(680px, 100%);
+  display: grid;
+  gap: 1.5rem;
+}
+
+.panel {
+  background-color: var(--panel-bg);
+  border-radius: 14px;
+  border: var(--border);
+  padding: 1.5rem;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
+  backdrop-filter: blur(18px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .panel {
+    background-color: var(--panel-bg-dark);
+    border: var(--border-dark);
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.45);
+  }
+}
+
+.app__header {
+  text-align: center;
+  padding: 0.5rem 0 0;
+}
+
+.app__tagline {
+  margin: 0.5rem 0 0;
+  color: rgba(31, 41, 55, 0.7);
+}
+
+@media (prefers-color-scheme: dark) {
+  .app__tagline {
+    color: rgba(226, 232, 240, 0.8);
+  }
+}
+
+.todo-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.todo-form__label {
+  font-weight: 600;
+}
+
+.todo-form__input-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.todo-form input {
+  flex: 1 1 auto;
+  padding: 0.65rem 0.8rem;
+  border-radius: 999px;
+  border: var(--border);
+  font-size: 1rem;
+}
+
+.todo-form input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .todo-form input {
+    background: rgba(15, 23, 42, 0.75);
+    border: var(--border-dark);
+    color: inherit;
+  }
+}
+
+.button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.35);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent-dark);
+  outline-offset: 3px;
+}
+
+.filters {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.filters__button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  background: rgba(148, 163, 184, 0.18);
+  color: inherit;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.filters__button[aria-pressed="true"] {
+  background: rgba(37, 99, 235, 0.18);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.filters__button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.todo-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: var(--border);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  .todo-item {
+    background: rgba(15, 23, 42, 0.75);
+    border: var(--border-dark);
+  }
+}
+
+.todo-item__text {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.todo-item__text--done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.todo-item__remove {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: rgba(239, 68, 68, 0.85);
+  font-weight: 600;
+}
+
+.todo-empty {
+  margin: 1.25rem 0 0;
+  text-align: center;
+  font-style: italic;
+  color: rgba(51, 65, 85, 0.7);
+}
+
+@media (prefers-color-scheme: dark) {
+  .todo-empty {
+    color: rgba(203, 213, 225, 0.75);
+  }
+}
+
+.summary {
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+.app__footer {
+  text-align: center;
+}
