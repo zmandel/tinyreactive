@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TinyReactive Counter Demo</title>
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #222;
+      background: #f8f9fa;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      padding: 2.5rem 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 18px 40px rgba(30, 50, 90, 0.12);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 1.5rem;
+    }
+
+    .counter-value {
+      font-size: 3.5rem;
+      margin: 0 0 1.5rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button {
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 999px;
+      background: #0070f3;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #005ac1;
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>TinyReactive Counter</h1>
+    <div class="counter-value" id="counter">0</div>
+    <button id="increment">Increment</button>
+  </div>
+
+  <script src="../../src/store.js"></script>
+  <script>
+    // create a store with a simple state object
+    const store = StoreLib.createStore({ count: 0 });
+
+    const counter = document.getElementById('counter');
+    const incrementButton = document.getElementById('increment');
+
+    // subscribe to updates of the count value
+    store.subscribe(function (state) {
+      counter.textContent = state.count;
+    });
+
+    // update the state when the button is clicked
+    incrementButton.addEventListener('click', function () {
+      const current = store.get();
+      store.set({ count: current.count + 1 });
+    });
+  </script>
+</body>
+</html>
