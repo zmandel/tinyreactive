@@ -157,9 +157,6 @@ function renderSummary(todos) {
 }
 
 function renderDraftInput(draft) {
-  //note that for this demo, we only update the value from the draftInput itself,
-  //thus it will always be equal to draft, making this subcrition unnecessary, but in the future
-  //one could restore a draft from localStorage or similar, which this would handle.
   logNotification('draft input');
   if (elements.draftInput.value !== draft) {
     elements.draftInput.value = draft;
