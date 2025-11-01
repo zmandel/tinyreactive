@@ -1,57 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>TinyReactive &mdash; Full demo (modules)</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body data-app-loading>
-    <main class="app" aria-labelledby="app-title">
-      <header class="app__header">
-        <h1 id="app-title">TinyReactive &mdash; Todos</h1>
-        <p class="app__tagline">View subscriptions as the store changes</p>
-      </header>
-      <section class="panel" aria-labelledby="create-title">
-        <h2 id="create-title">Create a task</h2>
-        <form data-todo-form class="todo-form">
-          <div class="todo-form__input-row">
-            <input
-              id="todo-input"
-              name="todo"
-              autocomplete="off"
-              placeholder="Add a new task"
-              required
-            />
-            <button type="submit" class="button">Add</button>
-          </div>
-        </form>
-      </section>
-        <div class="app__status">
-          <p class="summary" data-summary></p>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TinyReactive &mdash; Full demo (modules)</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body data-app-loading>
+  <main class="app" aria-labelledby="app-title">
+    <header class="app__header">
+      <h1 id="app-title">TinyReactive &mdash; Todos</h1>
+      <p class="app__tagline">View subscriptions as the store changes</p>
+    </header>
+    <section class="panel" aria-labelledby="create-title">
+      <h2 id="create-title">Create a task</h2>
+      <form data-todo-form class="todo-form">
+        <div class="todo-form__input-row">
+          <input id="todo-input" name="todo" autocomplete="off" placeholder="Add a new task" required />
+          <button type="submit" class="button">Add</button>
         </div>
-      <section class="panel" aria-labelledby="list-title">
-        <header class="panel__header">
-          <h2 id="list-title">Tasks</h2>
-          <div class="filters" aria-label="Filter tasks">
-            <button class="filters__button" data-filter="all" aria-pressed="true">All</button>
-            <button class="filters__button" data-filter="active" aria-pressed="false">Active</button>
-            <button class="filters__button" data-filter="completed" aria-pressed="false">Completed</button>
-          </div>
-        </header>
-        <ul class="todo-list" data-todo-list aria-live="polite"></ul>
-        <p class="todo-empty" data-empty-state hidden>No tasks yet &mdash; enjoy the calm!</p>
-      </section>
-    </main>
-  <aside class="notifications" data-notifications aria-labelledby="notifications-title">
-      <h2 id="notifications-title">Notifications</h2>
-      <div class="notifications__toolbar">
-        <button type="button" class="notifications__button notifications__clear" data-clear-logs>Clear</button>
-        <button type="button" class="notifications__button notifications__hide" data-hide-notifications>Hide</button>
-      </div>
-      <div class="notifications__list" data-log-list aria-live="polite"></div>
-    </aside>
-    <button type="button" class="notifications__show" data-show-notifications hidden>👁️</button>
-    <script type="module" src="./app.js"></script>
-  </body>
+      </form>
+    </section>
+    <div class="app__status">
+      <p class="summary" data-summary></p>
+    </div>
+    <section class="panel" aria-labelledby="list-title">
+      <header class="panel__header">
+        <h2 id="list-title">Tasks</h2>
+        <div class="filters" aria-label="Filter tasks">
+          <button class="filters__button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filters__button" data-filter="active" aria-pressed="false">Active</button>
+          <button class="filters__button" data-filter="completed" aria-pressed="false">Completed</button>
+        </div>
+      </header>
+      <ul class="todo-list" data-todo-list aria-live="polite"></ul>
+      <p class="todo-empty" data-empty-state hidden>No tasks yet &mdash; enjoy the calm!</p>
+    </section>
+  </main>
+  <aside class="notifications" data-notifications aria-labelledby="notifications-title" hidden>
+    <h2 id="notifications-title">Notifications</h2>
+    <div class="notifications__toolbar">
+      <button type="button" class="notifications__button notifications__clear" data-clear-logs>Clear</button>
+      <button type="button" class="notifications__button notifications__hide" data-hide-notifications>Hide</button>
+    </div>
+    <div class="notifications__list" data-log-list aria-live="polite"></div>
+  </aside>
+  <button type="button" class="notifications__show eye-btn" data-show-notifications>👁️</button>
+  <script type="module" src="./app.js"></script>
+</body>
+
 </html>

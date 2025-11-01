@@ -6,7 +6,7 @@
 	<title>TinyReactive Samples</title>
 	<style>
 		body { font-family: Arial, sans-serif; margin: 0; background: #f3f5f9; color: #1e2330; }
-		main { max-width: 720px; margin: 6rem auto; padding: 0 2rem; }
+		main { max-width: 720px; margin: 1rem auto; padding: 0 2rem; }
 		h1 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
 		.samples { display: grid; gap: 1.5rem; }
 		.card { background: #fff; border-radius: 12px; padding: 1.75rem; box-shadow: 0 10px 25px rgba(30, 35, 48, 0.1); }
@@ -14,20 +14,29 @@
 		.card p { margin: 0 0 1.25rem; line-height: 1.5; }
 		.card a { display: inline-block; padding: 0.6rem 1.25rem; border-radius: 999px; background: #5865f2; color: #fff; text-decoration: none; font-weight: bold; }
 		.card a:hover { background: #4752c4; }
+    .card ul { 
+      padding-inline-start: 20px;
+    }
 	</style>
 </head>
 <body>
 	<main>
-		<h1>TinyReactive Sample Gallery</h1>
+		<h1>TinyReactive Samples</h1>
+    <p>Code for all samples can be seen from your devtools. Its not minimized or bundled.</p>
 		<section class="samples">
 			<article class="card">
-				<h2>minimal</h2>
-				<p>A stripped-down starter that highlights the bare essentials of the reactive store.</p>
+				<h2>Minimal - <span>simple counter increment</span></h2>
+          <p>Uses the &lt;script&gt; tag inside the HTML, subscribing to counter changes.</p>
 				<a href="samples/minimal/index.html">Open sample</a>
 			</article>
 			<article class="card">
-				<h2>full-modules</h2>
-				<p>A modular demo showing routing, styles, and a richer component structure working together.</p>
+				<h2>Full - <span>tasks app</span></h2>
+        <ul>
+          <li>Shows a notifications pane with all the events being dispatched.</li>
+          <li>Imports the store as an ES6 module.</li>
+          <li>Saves and restores state from local storage.</li>
+          <li>Subscribes multiple components to different parts of the same state object.</li>
+        </ul>
 				<a href="samples/tasks-app/index.html">Open sample</a>
 			</article>
 		</section>

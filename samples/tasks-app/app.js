@@ -10,7 +10,7 @@ const defaultState = {
   ],
   filter: 'all',
   draft: '',
-  notificationPanel: true
+  notificationPanel: false
 };
 
 const hasStorage = typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
@@ -128,11 +128,13 @@ function renderTodoList({ todos, filter }) {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = todo.done;
-    checkbox.setAttribute('aria-label', `Toggle ${todo.text}`);
+    const checkboxId = `todo-${todo.id}`;
+    checkbox.id = checkboxId;
 
-    const text = document.createElement('p');
-    text.className = 'todo-item__text' + (todo.done ? ' todo-item__text--done' : '');
-    text.textContent = todo.text;
+    const textLabel = document.createElement('label');
+    textLabel.className = 'todo-item__text' + (todo.done ? ' todo-item__text--done' : '');
+    textLabel.htmlFor = checkboxId;
+    textLabel.textContent = todo.text;
 
     const removeButton = document.createElement('button');
     removeButton.type = 'button';
@@ -141,7 +143,7 @@ function renderTodoList({ todos, filter }) {
     removeButton.textContent = '×';
     removeButton.setAttribute('aria-label', `Remove ${todo.text}`);
 
-    item.append(checkbox, text, removeButton);
+    item.append(checkbox, textLabel, removeButton);
     fragment.appendChild(item);
   }
 
@@ -177,6 +179,7 @@ function renderFilters(activeFilter) {
 
 function logNewSection() {
   logNotification("——————————", true);
+  triggerBlink();
 }
 
 function renderNotificationPanel(isVisible) {
@@ -283,4 +286,19 @@ if (typeof document !== 'undefined') {
       persistCurrentState();
     }
   });
+}
+
+function triggerBlink() {
+  const eye = document.querySelector('.eye-btn');
+  if (!eye)
+    return;
+
+  const handleAnimationEnd = () => {
+    eye.classList.remove('blink');
+    eye.removeEventListener('animationend', handleAnimationEnd);
+  };
+
+  eye.addEventListener('animationend', handleAnimationEnd);
+  void eye.offsetWidth; // force reflow before starting the animation
+  eye.classList.add('blink');
 }
