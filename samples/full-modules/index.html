@@ -3,25 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TinyReactive &mdash; Full demo (modules)</title>
-    <style>
-      body[data-app-loading] {
-        visibility: hidden;
-      }
-    </style>
+    <title>TinyReactive &mdash; Full demo (modules)</title>|
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-app-loading>
     <main class="app" aria-labelledby="app-title">
       <header class="app__header">
         <h1 id="app-title">TinyReactive &mdash; Todos</h1>
-        <p class="app__tagline">A small productivity board powered by the store module.</p>
+        <p class="app__tagline">View subscriptions in Notifications as the store changes</p>
       </header>
 
       <section class="panel" aria-labelledby="create-title">
         <h2 id="create-title">Create a task</h2>
         <form data-todo-form class="todo-form">
-          <label class="todo-form__label" for="todo-input">Task</label>
           <div class="todo-form__input-row">
             <input
               id="todo-input"
@@ -34,7 +28,9 @@
           </div>
         </form>
       </section>
-
+        <div class="app__status">
+          <p class="summary" data-summary></p>
+        </div>
       <section class="panel" aria-labelledby="list-title">
         <header class="panel__header">
           <h2 id="list-title">Tasks</h2>
@@ -44,17 +40,15 @@
             <button class="filters__button" data-filter="completed" aria-pressed="false">Completed</button>
           </div>
         </header>
-
         <ul class="todo-list" data-todo-list aria-live="polite"></ul>
         <p class="todo-empty" data-empty-state hidden>No tasks yet &mdash; enjoy the calm!</p>
       </section>
-
-      <footer class="panel app__footer">
-        <p class="summary" data-summary></p>
-      </footer>
     </main>
     <aside class="notifications" aria-labelledby="notifications-title">
       <h2 id="notifications-title">Notifications</h2>
+      <div class="notifications__toolbar">
+        <button type="button" class="notifications__clear" data-clear-logs>Clear</button>
+      </div>
       <div class="notifications__list" data-log-list aria-live="polite"></ul>
     </aside>
     <script type="module" src="./app.js"></script>

@@ -17,34 +17,48 @@ const elements = {
   emptyState: document.querySelector('[data-empty-state]'),
   summary: document.querySelector('[data-summary]'),
   filters: Array.from(document.querySelectorAll('[data-filter]')),
-  logList: document.querySelector('[data-log-list]')
+  logList: document.querySelector('[data-log-list]'),
+  clearLogsButton: document.querySelector('[data-clear-logs]')
 };
 
 if (Object.values(elements).some((value) => value == null)) {
   throw new Error('App markup missing required data attributes.');
 }
 
-function log(message) {
+function logNotification(message, noTime) {
+  const maxLogItems = 15;
   const timestamp = new Date();
   const item = document.createElement('div');
   item.className = 'notifications__item';
-  const timeText = timestamp.toLocaleTimeString([], {
-    hour12: false,
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  });
-  item.textContent = `${timeText}  ${message}`;
+
+  if (noTime) {
+    item.textContent = message;
+  } else {
+    const timeText = timestamp.toLocaleTimeString([], {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    item.textContent = `${timeText}  ${message}`;
+  }
 
   elements.logList.append(item);
   const scroller = elements.logList.parentElement ?? elements.logList;
   scroller.scrollTop = scroller.scrollHeight;
+
+  const children = Array.from(elements.logList.children);
+  const cutoffIndex = Math.max(0, children.length - maxLogItems);
+  children.forEach((child, index) => {
+    if (index < cutoffIndex)
+      elements.logList.removeChild(child);
+  });
 }
 
 // --- Rendering helpers ----------------------------------------------------
 
 function renderTodoList({ todos, filter }) {
-  log('todo list');
+  logNotification('todo list');
   const visibleTodos = todos.filter((todo) => {
     switch (filter) {
       case 'active':
@@ -96,7 +110,7 @@ function renderTodoList({ todos, filter }) {
 }
 
 function renderSummary(todos) {
-  log('summary');
+  logNotification('summary');
   const completed = todos.reduce((count, todo) => (todo.done ? count + 1 : count), 0);
   const total = todos.length;
   const pending = total - completed;
@@ -108,14 +122,17 @@ function renderSummary(todos) {
 }
 
 function renderDraftInput(draft) {
-  log('draft input');
+  //note that for this demo, we only update the value from the draftInput itself,
+  //thus it will always be equal to draft, making this subcrition unnecessary, but in the future
+  //one could restore a draft from localStorage or similar, which this would handle.
+  logNotification('draft input');
   if (elements.draftInput.value !== draft) {
     elements.draftInput.value = draft;
   }
 }
 
 function renderFilters(activeFilter) {
-  log('filters');
+  logNotification('filters');
   for (const button of elements.filters) {
     const isActive = button.dataset.filter === activeFilter;
     button.setAttribute('aria-pressed', String(isActive));
@@ -123,7 +140,7 @@ function renderFilters(activeFilter) {
 }
 
 function logNewSection() {
-  log("----------");
+  logNotification("——————————", true);
 }
 
 // --- Subscriptions --------------------------------------------------------
@@ -132,7 +149,7 @@ store.subscribe(renderTodoList, (state) => ({ todos: state.todos, filter: state.
 store.subscribe(renderSummary, (state) => state.todos);
 store.subscribe(renderDraftInput, (state) => state.draft);
 store.subscribe(renderFilters, (state) => state.filter);
-store.subscribe(logNewSection);
+store.subscribe(logNewSection); // subscribe at the end, to log a separator in the notifications
 
 //since stores notify synchronously on initialization (above), the app has finished rendering here,
 //so show the app by removing the loading attribute
@@ -197,4 +214,8 @@ elements.filters.forEach((button) => {
     if (!filter || filter === store.get().filter) return;
     store.patch({ filter });
   });
+});
+
+elements.clearLogsButton.addEventListener('click', () => {
+  elements.logList.replaceChildren();
 });
