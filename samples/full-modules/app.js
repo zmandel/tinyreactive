@@ -1,6 +1,8 @@
 import { createStore } from '../../src/store.module.js';
 
-const store = createStore({
+const STORAGE_KEY = 'tinyreactive:app-state';
+
+const defaultState = {
   todos: [
     { id: 1, text: 'Skim the TinyReactive store API', done: true },
     { id: 2, text: 'Build something delightful', done: false },
@@ -8,7 +10,40 @@ const store = createStore({
   ],
   filter: 'all',
   draft: ''
-});
+};
+
+const hasStorage = typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+
+function loadPersistedState() {
+  if (!hasStorage)
+    return null;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+
+    const parsed = JSON.parse(raw);
+    return parsed;
+  } catch (error) {
+    console.warn('Failed to load persisted TinyReactive state.', error);
+    return null;
+  }
+}
+
+const store = createStore(loadPersistedState() ?? defaultState);
+
+function persistStateSnapshot(state) {
+  if (!hasStorage)
+    return;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (error) {
+    console.warn('Failed to persist TinyReactive state.', error);
+  }
+}
+
+function persistCurrentState() {
+  persistStateSnapshot(store.get());
+}
 
 const elements = {
   form: document.querySelector('[data-todo-form]'),
@@ -219,3 +254,17 @@ elements.filters.forEach((button) => {
 elements.clearLogsButton.addEventListener('click', () => {
   elements.logList.replaceChildren();
 });
+
+// persist app state when the page is closed or backgrounded
+if (typeof window !== 'undefined') {
+  window.addEventListener('pagehide', persistCurrentState);
+  window.addEventListener('beforeunload', persistCurrentState);
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      persistCurrentState();
+    }
+  });
+}
