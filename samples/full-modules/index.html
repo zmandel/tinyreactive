@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TinyReactive &mdash; Full demo (modules)</title>|
+    <title>TinyReactive &mdash; Full demo (modules)</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-app-loading>
@@ -12,7 +12,6 @@
         <h1 id="app-title">TinyReactive &mdash; Todos</h1>
         <p class="app__tagline">View subscriptions in Notifications as the store changes</p>
       </header>
-
       <section class="panel" aria-labelledby="create-title">
         <h2 id="create-title">Create a task</h2>
         <form data-todo-form class="todo-form">
@@ -44,13 +43,15 @@
         <p class="todo-empty" data-empty-state hidden>No tasks yet &mdash; enjoy the calm!</p>
       </section>
     </main>
-    <aside class="notifications" aria-labelledby="notifications-title">
+  <aside class="notifications" data-notifications aria-labelledby="notifications-title">
       <h2 id="notifications-title">Notifications</h2>
       <div class="notifications__toolbar">
-        <button type="button" class="notifications__clear" data-clear-logs>Clear</button>
+        <button type="button" class="notifications__button notifications__clear" data-clear-logs>Clear</button>
+        <button type="button" class="notifications__button notifications__hide" data-hide-notifications>Hide</button>
       </div>
       <div class="notifications__list" data-log-list aria-live="polite"></ul>
     </aside>
+    <button type="button" class="notifications__show" data-show-notifications hidden>👁️</button>
     <script type="module" src="./app.js"></script>
   </body>
 </html>

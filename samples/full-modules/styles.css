@@ -10,9 +10,9 @@
 }
 
 * {
-    margin: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -68,6 +68,7 @@ body[data-app-loading] {
 
 .todo-form input {
   flex: 1 1 auto;
+  min-width: 0;
   padding: 0.65rem 0.8rem;
   border-radius: 999px;
   font-size: 1rem;
@@ -104,9 +105,11 @@ body[data-app-loading] {
 }
 
 .filters {
-  display: inline-flex;
+  display: flex;
   gap: 0.5rem;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .filters__button {
@@ -186,33 +189,61 @@ body[data-app-loading] {
 
 .notifications {
   position: fixed;
-  right: 0rem;
-  bottom: 0rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
   width: 13rem;
   max-height: 80vh;
   overflow-y: hidden;
   background: var(--panel-bg);
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.75rem;
   padding: 1rem;
-  box-shadow: 0 0.5rem 2rem rgba(0,0,0,0.15);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
+  z-index: 10;
 }
 
 .notifications__toolbar {
   display: flex;
   justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   margin-bottom: 0.5rem;
 }
 
-.notifications__clear {
+.notifications__button {
   font: inherit;
   cursor: pointer;
   border: 1px solid currentColor;
   background: transparent;
-  padding: 0.15rem 0.55rem;
-  margin: 0.3rem;
-  border-radius: 4px;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
   outline: 1px solid currentColor;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.notifications__button:hover,
+.notifications__button:focus-visible {
+  background: rgba(148, 163, 184, 0.18);
+}
+
+.notifications__show {
+  position: fixed;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  font: inherit;
+  cursor: pointer;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.85);
+  color: inherit;
+  box-shadow: 0 0.5rem 1.5rem rgba(15, 23, 42, 0.35);
+  z-index: 9;
+}
+
+.notifications__show:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 #notifications-title {

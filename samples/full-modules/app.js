@@ -9,7 +9,8 @@ const defaultState = {
     { id: 3, text: 'Share it with a teammate', done: false }
   ],
   filter: 'all',
-  draft: ''
+  draft: '',
+  notificationPanel: true
 };
 
 const hasStorage = typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
@@ -53,7 +54,10 @@ const elements = {
   summary: document.querySelector('[data-summary]'),
   filters: Array.from(document.querySelectorAll('[data-filter]')),
   logList: document.querySelector('[data-log-list]'),
-  clearLogsButton: document.querySelector('[data-clear-logs]')
+  clearLogsButton: document.querySelector('[data-clear-logs]'),
+  notificationsPanel: document.querySelector('[data-notifications]'),
+  hideNotificationsButton: document.querySelector('[data-hide-notifications]'),
+  showNotificationsButton: document.querySelector('[data-show-notifications]')
 };
 
 if (Object.values(elements).some((value) => value == null)) {
@@ -175,12 +179,19 @@ function logNewSection() {
   logNotification("——————————", true);
 }
 
+function renderNotificationPanel(isVisible) {
+  logNotification('notif. panel');
+  elements.notificationsPanel.hidden = !isVisible;
+  elements.showNotificationsButton.hidden = isVisible;
+}
+
 // --- Subscriptions --------------------------------------------------------
 
 store.subscribe(renderTodoList, (state) => ({ todos: state.todos, filter: state.filter }));
 store.subscribe(renderSummary, (state) => state.todos);
 store.subscribe(renderDraftInput, (state) => state.draft);
 store.subscribe(renderFilters, (state) => state.filter);
+store.subscribe(renderNotificationPanel, (state) => state.notificationPanel);
 store.subscribe(logNewSection); // subscribe at the end, to log a separator in the notifications
 
 //since stores notify synchronously on initialization (above), the app has finished rendering here,
@@ -250,6 +261,14 @@ elements.filters.forEach((button) => {
 
 elements.clearLogsButton.addEventListener('click', () => {
   elements.logList.replaceChildren();
+});
+
+elements.hideNotificationsButton.addEventListener('click', () => {
+  store.patch({ notificationPanel: false });
+});
+
+elements.showNotificationsButton.addEventListener('click', () => {
+  store.patch({ notificationPanel: true });
 });
 
 // persist app state when the page is closed or backgrounded
