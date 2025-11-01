@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>TinyReactive &mdash; Full demo (modules)</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -10,7 +10,7 @@
     <main class="app" aria-labelledby="app-title">
       <header class="app__header">
         <h1 id="app-title">TinyReactive &mdash; Todos</h1>
-        <p class="app__tagline">View subscriptions in Notifications as the store changes</p>
+        <p class="app__tagline">View subscriptions as the store changes</p>
       </header>
       <section class="panel" aria-labelledby="create-title">
         <h2 id="create-title">Create a task</h2>
@@ -49,7 +49,7 @@
         <button type="button" class="notifications__button notifications__clear" data-clear-logs>Clear</button>
         <button type="button" class="notifications__button notifications__hide" data-hide-notifications>Hide</button>
       </div>
-      <div class="notifications__list" data-log-list aria-live="polite"></ul>
+      <div class="notifications__list" data-log-list aria-live="polite"></div>
     </aside>
     <button type="button" class="notifications__show" data-show-notifications hidden>👁️</button>
     <script type="module" src="./app.js"></script>
