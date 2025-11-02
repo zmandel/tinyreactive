@@ -1,6 +1,7 @@
 # TinyReactive
 
-TinyReactive is a simple, efficient, and robust reactive data store for writing decoupled code. It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
+A simple, efficient, and robust reactive data store for writing decoupled code. It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
+TinyReactive is a simple, efficient and robust reactive data store to help you write decoupled code. It also serves as a learning resource with provided samples you can run and debug directly from the Github demos below or your local machine install.
 
 ## Highlights
 - Updates only the parts of the UI that change.
