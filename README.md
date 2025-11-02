@@ -87,7 +87,7 @@ Subscribers receive the initial value immediately and only update when the selec
 The `samples` directory shows the building blocks in action:
 
 - [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler only patches the changing field.
-- [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Independent subscriptions render the list, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted.
+- [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Start by watching the notification panel to observe each subscriber's messages so you can trace how data travels through the store. Independent subscriptions render the list, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted.
 
 ## Demo
 Prefer a hosted version? Inspect the running examples directly:
