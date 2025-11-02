@@ -56,7 +56,6 @@ const elements = {
   logList: document.querySelector('[data-log-list]'),
   clearLogsButton: document.querySelector('[data-clear-logs]'),
   notificationsPanel: document.querySelector('[data-notifications]'),
-  hideNotificationsButton: document.querySelector('[data-hide-notifications]'),
   showNotificationsButton: document.querySelector('[data-show-notifications]')
 };
 
@@ -112,7 +111,8 @@ function renderTodoList({ todos, filter }) {
   elements.list.replaceChildren();
 
   if (visibleTodos.length === 0) {
-    elements.emptyState.hidden = false;
+    // Show the empty message only when the "active" filter is selected.
+    elements.emptyState.hidden = filter !== 'active';
     return;
   }
 
@@ -185,7 +185,8 @@ function logNewSection() {
 function renderNotificationPanel(isVisible) {
   logNotification('notif. panel');
   elements.notificationsPanel.hidden = !isVisible;
-  elements.showNotificationsButton.hidden = isVisible;
+  // keep the eye always visible — do not hide the show button
+  // elements.showNotificationsButton.hidden = isVisible; // removed
 }
 
 // --- Subscriptions --------------------------------------------------------
@@ -266,12 +267,9 @@ elements.clearLogsButton.addEventListener('click', () => {
   elements.logList.replaceChildren();
 });
 
-elements.hideNotificationsButton.addEventListener('click', () => {
-  store.patch({ notificationPanel: false });
-});
-
 elements.showNotificationsButton.addEventListener('click', () => {
-  store.patch({ notificationPanel: true });
+  const current = store.get().notificationPanel;
+  store.patch({ notificationPanel: !current });
 });
 
 // persist app state when the page is closed or backgrounded
