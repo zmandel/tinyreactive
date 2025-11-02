@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // build options: outDir is relative to the project root (this folder)
+  // Set this only if index.html is in src
+  root: 'src',
   build: {
-    outDir: 'dist',
+    // When root is 'src', emit dist to the project root
+    outDir: '../dist',
     emptyOutDir: true
   }
 });

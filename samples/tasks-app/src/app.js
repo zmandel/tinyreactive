@@ -1,4 +1,4 @@
-import { createStore } from '../../src/store.module.js';
+import { createStore } from '../../../src/store.module.js';
 
 const STORAGE_KEY = 'tinyreactive:app-state';
 

@@ -122,14 +122,16 @@ body[data-app-loading] {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.button:hover,
-.button:focus-visible {
-  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.35);
-}
+@media (hover: hover) and (pointer: fine) {
+  .button:hover,
+  .button:focus-visible {
+    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.35);
+  }
 
-.button:focus-visible {
-  outline: 2px solid var(--accent-dark);
-  outline-offset: 3px;
+  .button:focus-visible {
+    outline: 2px solid var(--accent-dark);
+    outline-offset: 3px;
+  }
 }
 
 .filters {
@@ -183,8 +185,10 @@ body[data-app-loading] {
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
-.todo-item__text:hover {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .todo-item__text:hover {
+    opacity: 1;
+  }
 }
 
 .todo-item__text {
@@ -210,11 +214,13 @@ body[data-app-loading] {
   font-weight: 600;
 }
 
-.todo-item__remove:hover,
-.todo-item__remove:focus-visible {
-  color: rgba(239, 68, 68, 1);
-  text-decoration: underline;
-  outline: none;
+@media (hover: hover) and (pointer: fine) {
+  .todo-item__remove:hover,
+  .todo-item__remove:focus-visible {
+    color: rgba(239, 68, 68, 1);
+    text-decoration: underline;
+    outline: none;
+  }
 }
 
 .todo-empty {
@@ -282,10 +288,12 @@ body[data-app-loading] {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.notifications__button:hover,
-.notifications__button:focus-visible {
-  background: rgba(148, 163, 184, 0.22);
-  color: var(--accent-dark);
+@media (hover: hover) and (pointer: fine) {
+  .notifications__button:hover,
+  .notifications__button:focus-visible {
+    background: rgba(148, 163, 184, 0.22);
+    color: var(--accent-dark);
+  }
 }
 
 .notifications__show {
@@ -327,9 +335,11 @@ h2 {
   transform-origin: center;
 }
 
-.eye-btn:hover,
-.eye-btn:focus-visible {
-  filter: brightness(1.1);
+@media (hover: hover) and (pointer: fine) {
+  .eye-btn:hover,
+  .eye-btn:focus-visible {
+    filter: brightness(1.1);
+  }
 }
 
 @keyframes blink {

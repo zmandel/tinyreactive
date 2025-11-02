@@ -2,10 +2,10 @@
   "name": "tasks-app",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build"
+    "build": "vite build",
+    "preview": "vite preview --host"
   },
   "keywords": [],
   "author": "",

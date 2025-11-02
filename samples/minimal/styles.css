@@ -42,8 +42,10 @@ button {
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
-button:hover {
-  background: #005ac1;
+@media (hover: hover) and (pointer: fine) {
+  button:hover {
+    background: #005ac1;
+  }
 }
 
 button,
