@@ -1,23 +1,25 @@
 # TinyReactive
 
+A simple, efficient, and robust reactive data store for writing decoupled code. It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
 TinyReactive is a simple, efficient and robust reactive data store to help you write decoupled code. It also serves as a learning resource with provided samples you can run and debug directly from the Github demos below or your local machine install.
 
-Features:
-  - Updates just the parts that change.
-  - No virtual DOM or browser dependency.
-  - HTML elements are not recreated.
-  - Multiple store updates are batched and run on the next frame draw (or microtasks for non-browser scenarios)
-  - Subscribers always receive a settled state.
-  - Use with <code>import</code>, <code>require</code>, or a <code>&lt;script&gt;</code> tag.
-  - Has no dependencies.
-  - Store core code is about 100 lines of code, 700B minimized/gzipped.
+## Highlights
+- Updates only the parts of the UI that change.
+- No virtual DOM or browser dependency.
+- Keeps existing DOM nodes intact.
+- Batches consecutive updates on the next frame draw (or microtasks outside the browser).
+- Subscribers always receive a settled state.
+- Works with `import`, `require`, or a `<script>` tag.
+- No runtime dependencies.
+- Core store logic is about 100 lines of code (≈700 B minified and gzipped).
 
-This library is used in production by [tutorforme.org](https://tutorforme.org).  
-Its meant to be kept simple, for small and medium complexity cases. For a much more complete framework with similar store concepts see [Solid](https://www.solidjs.com/tutorial/introduction_signals), [Preact signals](https://preactjs.com/blog/signal-boosting/), [Vue](https://vuejs.org/guide/introduction.html)
+This library is used in production by [tutorforme.org](https://tutorforme.org).
+It's meant to stay small for simple and medium-complexity scenarios. For larger-scale frameworks with similar store concepts see [Solid](https://www.solidjs.com/tutorial/introduction_signals), [Preact signals](https://preactjs.com/blog/signal-boosting/), or [Vue](https://vuejs.org/guide/introduction.html).
 
-Fun fact: I first designed and implemented this exact pattern in 1997, using C++ for Microsoft Money, the first reactive UI ever built at Microsoft, because I was frustrated with all the code patching needed in the UI whenever the database engine modified data.
+Fun fact: this pattern was first designed and implemented in 1997 for Microsoft Money, a project that needed deterministic reactive updates without constant UI rewrites whenever the database changed.
 
 ## Table of contents
+- [Highlights](#highlights)
 - [Why TinyReactive](#why-tinyreactive)
 - [Key ideas](#key-ideas)
 - [Getting started](#getting-started)
@@ -32,7 +34,7 @@ Traditional DOM scripting couples event handlers, data, and rendering logic tigh
 With a reactive store, components describe **what** slice of data they care about, the store notifies them **when** that slice changes, and the UI automatically updates just what it needs to reflect the new state of data.
 
 ## Key ideas
-The store implementation lives in [`src/store.js`](src/store.js) with an ES module wrapper in [`src/store.module.js`](src/store.module.js) with this public API:
+The store implementation lives in [`src/store.js`](src/store.js) with an ES module wrapper in [`src/store.module.js`](src/store.module.js). The public API is:
 
 ```js
 const store = createStore(initialState); //returns an object with `get`, `set`, `patch`, and `subscribe`.
@@ -45,15 +47,15 @@ store.subscribe(callback, selector?); //registers a listener. The callback runs 
 Internally, TinyReactive keeps a `Set` of subscribers. Each subscriber caches the last value from its selector, so updates fire only when needed. Notifications are deferred with `requestAnimationFrame` (or `queueMicrotask`/`setTimeout` outside the browser) to ensure all mutations settle before DOM work. Selector or subscriber failures are caught, logged, and unsubscribed so a single bug cannot stall the store or provide an inconsistent state.
 
 ## Getting started
-You can inspect and debug samples directly from the [demos](#demos) in GitHub pages, or clone the repo:
+You can inspect and debug samples directly from the [demos](#demos) in GitHub Pages, or clone the repo:
 
 ```sh
 git clone https://github.com/zmandel/tinyreactive.git
 cd tinyreactive
 ```
 
-The project is framework-free; open the minimal demo from your file explorer at samples/minimal/index.html directly in your browser. 
-For richer examples such as [`samples/tasks-app`](samples/tasks-app/), run a local dev server so "import" works:
+The project is framework-free; open the minimal demo from your file explorer at `samples/minimal/index.html` directly in your browser.
+For richer examples such as [`samples/tasks-app`](samples/tasks-app/), run a local dev server so `import` works:
 
 ```sh
 cd samples/tasks-app
@@ -73,22 +75,24 @@ Import the store factory and wire it to your UI code:
 <script type="module">
   import { createStore } from './src/store.module.js';
 
-  //create a store with an initial state value of zero.
-  //note: for more complex state, the store can hold state objects like {count: 0, name: 'my counter'}
+  // Create a store with a primitive initial value.
+  // For complex state, store objects such as { count: 0, label: 'My counter' }.
   const store = createStore(0);
 
-  //a simple subscription to the whole store.
-  //note: for a more complex state, the subscription could be just to part of the state
+  // Subscribe to the entire store value.
+  // Use selectors to subscribe to slices: state => state.count
   store.subscribe(value => {
     document.querySelector('#count').textContent = value;
   });
 
-  document.querySelector('button').addEventListener('click', () => store.set(store.get().count + 1));
+  document.querySelector('button').addEventListener('click', () => {
+    store.set(store.get() + 1);
+  });
 </script>
 ```
 
 ## Samples
-These `samples` can be run and debug directly from the [demos](#demos) below. 
+These `samples` can be run and debugged directly from the [demos](#demos) below.
 
 - [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler only patches the changing field.
 - [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Start by watching the notification panel to observe each subscriber's messages so you can trace how data travels through the store. Independent subscriptions render the list, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted. 
