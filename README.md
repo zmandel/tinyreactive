@@ -54,7 +54,9 @@ The project is framework-free; open any HTML file in the [`samples`](samples) di
 ## Usage
 Import the store factory and wire it to your UI code:
 
-```html
+<div id="count">0</div>
+<button>Increment</button>
+
 <script type="module">
   import { createStore } from './src/store.module.js';
 
@@ -68,7 +70,6 @@ Import the store factory and wire it to your UI code:
     .querySelector('button')
     .addEventListener('click', () => store.patch({ count: store.get().count + 1 }));
 </script>
-```
 
 Subscribers receive the initial value immediately and only update when the selector output changes. Because state reads go through `store.get()`, you can swap in persistence (e.g. `localStorage`) or devtools hooks without touching the rest of your UI.
 
