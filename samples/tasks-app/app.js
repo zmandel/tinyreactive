@@ -4,9 +4,9 @@ const STORAGE_KEY = 'tinyreactive:app-state';
 
 const defaultState = {
   todos: [
-    { id: 1, text: 'Skim the TinyReactive store API', done: true },
-    { id: 2, text: 'Build something delightful', done: false },
-    { id: 3, text: 'Share it with a teammate', done: false }
+    { id: 1, text: 'Read the TinyReactive store API', done: true },
+    { id: 2, text: 'Build something cool with it', done: false },
+    { id: 3, text: 'Share it with the world', done: false }
   ],
   filter: 'all',
   draft: '',
