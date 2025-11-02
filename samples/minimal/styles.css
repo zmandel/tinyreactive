@@ -45,3 +45,15 @@ button {
 button:hover {
   background: #005ac1;
 }
+
+button,
+a,
+input,
+textarea,
+select,
+label,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}

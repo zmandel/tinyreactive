@@ -14,6 +14,20 @@
   box-sizing: border-box;
 }
 
+/* Prevent mobile "painted rectangle" / tap highlight on interactive elements
+   while preserving keyboard focus styles via :focus-visible. */
+button,
+a,
+input,
+textarea,
+select,
+label,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; /* disable iOS callout on long press */
+  touch-action: manipulation;  /* hint to browser to optimize touch handling */
+}
+
 body {
   margin: 0;
   display: flex;
@@ -169,9 +183,8 @@ body[data-app-loading] {
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
-.todo-item:hover {
-  background: rgba(30, 41, 59, 0.85);
-  box-shadow: 0 6px 16px rgba(2, 6, 23, 0.35);
+.todo-item__text:hover {
+  opacity: 0.7;
 }
 
 .todo-item__text {
@@ -240,6 +253,11 @@ body[data-app-loading] {
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
   z-index: 10;
   backdrop-filter: blur(12px);
+}
+
+.notifications hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .notifications__toolbar {

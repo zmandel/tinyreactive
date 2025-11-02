@@ -63,15 +63,15 @@ if (Object.values(elements).some((value) => value == null)) {
   throw new Error('App markup missing required data attributes.');
 }
 
-function logNotification(message, noTime) {
+function logNotification(message, isSeparator = false) {
   const maxLogItems = 15;
   const timestamp = new Date();
-  const item = document.createElement('div');
-  item.className = 'notifications__item';
+  let item = null;
 
-  if (noTime) {
-    item.textContent = message;
+  if (isSeparator) {
+    item = document.createElement('hr');
   } else {
+    item = document.createElement('div');
     const timeText = timestamp.toLocaleTimeString([], {
       hour12: false,
       hour: '2-digit',
@@ -80,7 +80,7 @@ function logNotification(message, noTime) {
     });
     item.textContent = `${timeText}  ${message}`;
   }
-
+  item.className = 'notifications__item';
   elements.logList.append(item);
   const scroller = elements.logList.parentElement ?? elements.logList;
   scroller.scrollTop = scroller.scrollHeight;
@@ -178,7 +178,7 @@ function renderFilters(activeFilter) {
 }
 
 function logNewSection() {
-  logNotification("——————————", true);
+  logNotification(null, true);
   triggerBlink();
 }
 
