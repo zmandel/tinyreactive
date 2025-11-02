@@ -16,6 +16,7 @@ With a reactive store, UI components describe **what** slice of data they care a
 - Core store logic is about 100 lines of code (≈700 B minified and gzipped).
 
 It's meant to stay small, for simple and medium-complexity scenarios. For larger-scale frameworks with similar store concepts see [Solid](https://www.solidjs.com/tutorial/introduction_signals), [Preact signals](https://preactjs.com/blog/signal-boosting/), [Vue](https://vuejs.org/guide/introduction.html) etc. 
+
 Used in production by [tutorforme.org](https://tutorforme.org).
 
 Fun fact: I first created this pattern in 1997 for Microsoft Money. It had code mixing database with UI updates everywhere, i.e. every time a  `loan` was changed, the same code would call several functions to update the different UI parts that could be displaying loan information, like menus, pages, etc. It was hard to maintain and fragile when UX changes were made. I changed it so each UI component subscribed to the database engine for the changes each cared about.
