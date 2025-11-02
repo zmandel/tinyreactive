@@ -204,6 +204,31 @@ document.body.removeAttribute('data-app-loading');
 
 // --- Event wiring ----------------------------------------------------------
 
+let shouldRestoreFocus = false;
+
+const markPointerInteraction = () => {
+  shouldRestoreFocus = true;
+};
+
+if (typeof window !== 'undefined' && 'PointerEvent' in window) {
+  elements.showNotificationsButton.addEventListener('pointerdown', markPointerInteraction);
+} else {
+  elements.showNotificationsButton.addEventListener('mousedown', markPointerInteraction);
+  elements.showNotificationsButton.addEventListener('touchstart', markPointerInteraction, {
+    passive: true
+  });
+}
+
+elements.showNotificationsButton.addEventListener('focus', (event) => {
+  if (!shouldRestoreFocus) return;
+  shouldRestoreFocus = false;
+
+  const { relatedTarget } = event;
+  if (!(relatedTarget instanceof HTMLElement)) return;
+
+  relatedTarget.focus({ preventScroll: true });
+});
+
 elements.form.addEventListener('submit', (event) => {
   event.preventDefault();
   const text = store.get().draft.trim();
