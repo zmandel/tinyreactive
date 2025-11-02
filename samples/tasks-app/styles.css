@@ -191,7 +191,10 @@ body[data-app-loading] {
   margin: 0;
   display: block;
   font-size: 1rem;
-  width: min(100%, fit-content);
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .todo-item__text--done {
