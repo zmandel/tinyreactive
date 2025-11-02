@@ -29,6 +29,14 @@
         *
         * For safety, any failure in a callback or selector automatically unsubscribes that subscriber.
         */
+        /**
+         * Create a reactive store around the provided initial state.
+         * @template T
+         * @param {T} initialState Initial value for the store. Mutations replace or
+         * merge against this value; consumers should treat it as immutable.
+         * @returns {{get: () => T, set: (newState: T) => void, patch: (partial: Partial<T>) => void, subscribe: (callback: (value: any, isInit: boolean) => void, selector?: (state: T) => any) => () => void}}
+         * An object exposing snapshot access, mutation helpers, and reactive subscription.
+         */
         function createStore(initialState) {
           var state = initialState;
           var subscribers = new Set(); // { callback, selector, prev, active }
@@ -36,15 +44,33 @@
 
           // get current state snapshot.
           // only stable during notifications; otherwise it is the working state.
+          /**
+           * Obtain the current snapshot of the store.
+           * @returns {T} The latest state value. Callers must not mutate the
+           * returned object directly; use the provided mutation helpers
+           * instead.
+           */
           function get() { return state; }
 
           // replace entire state and notify subscribers on next frame
+          /**
+           * Replace the entire state and queue notifications to subscribers.
+           * @param {T} newState The new value to use for the store.
+           * @returns {void}
+           */
           function set(newState) {
             state = newState;
             scheduleNotify();
           }
 
           // shallow-merge partial state and notify on next frame
+          /**
+           * Perform a shallow merge with the current state and queue
+           * notifications to subscribers.
+           * @param {Partial<T>} partial Object containing properties to merge
+           * into a shallow clone of the current state.
+           * @returns {void}
+           */
           function patch(partial) {
             set(Object.assign({}, state, partial));
           }
@@ -52,6 +78,19 @@
           // subscribe to changes with an optional selector
           // callback(value, isInit): isInit = true when called with the initial value (during subscribe)
           // returns an unsubscribe function (optional: use to unsubscribe early)
+          /**
+           * Subscribe to state changes with an optional selector function.
+           * @param {(value: any, isInit: boolean) => void} callback Invoked with
+           * the selected value. Receives `isInit = true` for the synchronous
+           * initial call, then `false` for subsequent updates.
+           * @param {(state: T) => any} [selector] A selector that derives the
+           * relevant portion of the state. Defaults to the identity function.
+           * The callback only fires when the selected value changes (shallow
+           * comparison for arrays/objects, `Object.is` otherwise).
+           * @returns {() => void} An unsubscribe function. Once invoked the
+           * subscription is removed; callbacks throwing an error also cause
+           * automatic unsubscription.
+           */
           function subscribe(callback, selector) {
             if (!selector) selector = function (x) { return x; };
 
