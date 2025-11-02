@@ -1,38 +1,92 @@
 # TinyReactive
 
-TinyReactive is a deliberately small reactive data store that exists first and foremost as a learning resource. The codebase is easy to read, the demos are meant to be stepped through with your browser devtools, and every design choice is visible in a handful of source files. If you want to explore how state management works without a heavyweight framework, this repository invites you to inspect the implementation and debug it live through the published sample pages.
+TinyReactive is a deliberately small reactive data store designed as a learning resource. The code is intentionally compact, the demos are meant to be stepped through with browser devtools, and every design choice lives in a handful of source files. If you want to explore state management without a heavyweight framework, this repo lets you inspect the implementation and debug it live through published sample pages.
 
-## Why reactivity matters on the front end
+## Table of contents
+- [Why TinyReactive](#why-tinyreactive)
+- [Key ideas](#key-ideas)
+- [Getting started](#getting-started)
+- [Usage](#usage)
+- [Samples](#samples)
+- [Demo](#demo)
+- [Contributing](#contributing)
+- [License](#license)
 
-Classic DOM scripting couples event handlers, data, and rendering logic so tightly that a single change to the state of your app often ripples through the view layer by hand. A reactive store breaks that dependency chain. Components describe **what** slice of data they care about, the store notifies them **when** that slice changes, and your UI becomes a projection of the current state instead of a bag of manual DOM mutations. The result is a cleaner mental model: rules and data live in one place, rendering logic in another, and the glue code is handled by subscription callbacks.
+## Why TinyReactive
+Traditional DOM scripting couples event handlers, data, and rendering logic so tightly that a single state change ripples through the view layer manually. A reactive store breaks that dependency chain. Components describe **what** slice of data they care about, the store notifies them **when** that slice changes, and the UI becomes a projection of current state instead of a bag of DOM mutations.
 
-TinyReactive focuses on this separation of concerns:
+TinyReactive keeps the focus on separation of concerns:
 
-- **Data first.** You work with plain objects that represent your application state.
-- **Declarative subscriptions.** Each subscriber provides a selector that extracts the relevant data.
-- **Scheduled updates.** Notifications are batched on `requestAnimationFrame`, ensuring the DOM updates only after state settles.
+- **Data first.** Work with plain objects that represent application state.
+- **Declarative subscriptions.** Selectors extract only the data a subscriber needs.
+- **Scheduled updates.** Notifications are batched on `requestAnimationFrame`, so the DOM updates after state settles.
 
-## How the library works
+## Key ideas
+The store implementation lives in [`src/store.js`](src/store.js) with an ES module wrapper in [`src/store.module.js`](src/store.module.js). The public API is intentionally small:
 
-The store implementation lives in [`src/store.js`](src/store.js) (and an ES module friendly wrapper in [`src/store.module.js`](src/store.module.js)). The API surface is intentionally minimal:
+```js
+const store = createStore(initialState);
 
-- `createStore(initialState)` returns an object with `get`, `set`, `patch`, and `subscribe` methods.
-- `get()` exposes the latest snapshot of the state.
-- `set(newState)` replaces the entire state and queues notifications.
-- `patch(partialState)` shallow-merges new values before emitting, letting you update only the fields that changed.
-- `subscribe(callback, selector?)` registers listeners that react to the store. The callback is invoked immediately with the initial selected value. For subsequent updates, selectors run against the newest snapshot; if their output has not changed, the callback is skipped.
+store.get();
+store.set(newState);
+store.patch(partialState);
+store.subscribe(callback, selector?);
+```
 
-Under the hood TinyReactive keeps a `Set` of subscribers. Each subscriber caches the last value its selector produced, so updates only run when needed. Notifications are deferred with `requestAnimationFrame` (or `queueMicrotask`/`setTimeout` in non-browser contexts), giving you a consistent frame where all mutations have settled before the DOM work occurs. Runtime safety is also part of the lesson: selector or subscriber failures are caught, logged, and automatically unsubscribed so that a single bug does not lock the store.
+- `createStore(initialState)` returns an object with `get`, `set`, `patch`, and `subscribe`.
+- `get()` returns the latest snapshot of state.
+- `set(newState)` replaces the state and queues notifications.
+- `patch(partialState)` shallow merges updates before emitting changes.
+- `subscribe(callback, selector?)` registers a listener. The callback runs immediately with the initial selected value and only runs again when that value changes.
 
-The samples show how these pieces connect:
+Internally, TinyReactive keeps a `Set` of subscribers. Each subscriber caches the last value from its selector, so updates fire only when needed. Notifications are deferred with `requestAnimationFrame` (or `queueMicrotask`/`setTimeout` outside the browser) to ensure all mutations settle before DOM work. Selector or subscriber failures are caught, logged, and unsubscribed so a single bug cannot stall the store.
 
-- [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler merely patches `{ count: store.get().count + 1 }`, demonstrating how UI code can ignore DOM bookkeeping.
-- [`samples/tasks-app`](samples/tasks-app/) expands the same primitives into a full to-do experience. Independent subscriptions render the list, the summary, filter buttons, and even a notification panel. Each handler patches just the slice of state it owns, while selectors (`state => state.todos`, `state => ({ todos: state.todos, filter: state.filter })`, etc.) ensure that only the relevant DOM is re-rendered. The sample also shows how `store.get()` enables persistence with `localStorage` without breaking the reactive flow.
+## Getting started
+Clone the repo and open the samples locally:
 
-## Explore the demos
+```sh
+git clone https://github.com/zmandel/tinyreactive.git
+cd tinyreactive
+```
 
-Learning by inspecting code is powerful, but stepping through a working example makes the patterns click faster. Open the hosted demos, set breakpoints in your browser, and watch how state changes travel through selectors into the UI:
+The project is framework-free; open any HTML file in the [`samples`](samples) directory in your browser or serve the repo with your preferred static file server.
 
-👉 [Try the TinyReactive samples on GitHub Pages](https://zmandel.github.io/tinyreactive/)
+## Usage
+Import the store factory and wire it to your UI code:
 
-Clone the repository, tweak the samples, and experiment with new subscriptions or state shapes—the store is tiny on purpose so you can understand every line.
+```html
+<script type="module">
+  import { createStore } from './src/store.module.js';
+
+  const store = createStore({ count: 0 });
+
+  store.subscribe(value => {
+    document.querySelector('#count').textContent = value;
+  }, state => state.count);
+
+  document
+    .querySelector('button')
+    .addEventListener('click', () => store.patch({ count: store.get().count + 1 }));
+</script>
+```
+
+Subscribers receive the initial value immediately and only update when the selector output changes. Because state reads go through `store.get()`, you can swap in persistence (e.g. `localStorage`) or devtools hooks without touching the rest of your UI.
+
+## Samples
+The `samples` directory shows the building blocks in action:
+
+- [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler only patches the changing field.
+- [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Independent subscriptions render the list, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted.
+
+## Demo
+Prefer a hosted version? Inspect the running examples directly:
+
+👉 [TinyReactive on GitHub Pages](https://zmandel.github.io/tinyreactive/)
+
+Open the devtools, set breakpoints, and watch how state changes travel through selectors into the UI.
+
+## Contributing
+Issues and pull requests are welcome. If you find a bug or have a teaching-oriented enhancement, open a discussion so others can learn from the change.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
