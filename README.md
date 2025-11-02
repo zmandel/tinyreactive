@@ -55,7 +55,7 @@ git clone https://github.com/zmandel/tinyreactive.git
 cd tinyreactive
 ```
 
-The project is framework-free; open the minimal demo at [`samples/minimal/index.html`](samples/minimal/index.html) directly in your browser. For richer examples such as [`samples/tasks-app`](samples/tasks-app/), run a local dev server instead:
+The project is framework-free; open the minimal demo from your file explorer at samples/minimal/index.html directly in your browser. For richer examples such as [`samples/tasks-app`](samples/tasks-app/), run a local dev server instead:
 
 ```sh
 cd samples/tasks-app
