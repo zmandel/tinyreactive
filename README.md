@@ -1,6 +1,6 @@
 # TinyReactive
 
-TinyReactive is a deliberately small reactive data store designed as a learning resource. The code is intentionally compact, the demos are meant to be stepped through with browser devtools, and every design choice lives in a handful of source files. If you want to explore state management without a heavyweight framework, this repo lets you inspect the implementation and debug it live through published sample pages.
+TinyReactive is a deliberately small reactive data store that doubles as both a learning resource and a dependable tool for shipping interfaces. The code is intentionally compact, the demos are meant to be stepped through with browser devtools, and every design choice lives in a handful of source files. If you want to explore state management without a heavyweight framework, this repo lets you inspect the implementation and debug it live through published sample pages—while also relying on the same store that powers production experiences such as [tutorforme.org](https://tutorforme.org).
 
 ## Table of contents
 - [Why TinyReactive](#why-tinyreactive)
