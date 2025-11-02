@@ -1,6 +1,8 @@
 # TinyReactive
 
-TinyReactive is a very efficient and robust reactive data store that is deliberately small, to help you build reactive websites without needing a complex library, and as a learning resource.
+TinyReactive is a very efficient and robust reactive data store that is deliberately small, to help you build reactive websites without needing a complex library, and as a learning resource for anyone wanting an easy way to try reactive UIs.
+
+The library is very efficient because by default only UI that needs changing is modified. HTML elements are not recreated, there is no virtual DOM and all updates are batched on the next frame draw. It supports importing by "import", "require" or a <script> tag, and has no dependencies.
 
 The samples provided are published un-minimized and un-bundled so you can run and debug with browser devtools without needing a local install.
 
