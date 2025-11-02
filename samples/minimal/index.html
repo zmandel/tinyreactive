@@ -15,19 +15,20 @@
 
   <script src="../../src/store.js"></script>
   <script>
-    // create a store with a simple state object
-    const store = StoreLib.createStore({ count: 0 });
+    // create a store with a simple state: a number representing the count
+    // note that for more complex state, the store can hold objects like {count: 0, name: 'my counter'}
+    const store = StoreLib.createStore(0);
 
     // subscribe to updates of the count value
-    store.subscribe(function (state) {
-      document.getElementById('counter').textContent = state.count;
+    store.subscribe(function (count) {
+      document.getElementById('counter').textContent = count;
     });
 
     // update the state when the button is clicked.
     // note that this code only cares about updating the state.
     // It does not need to know about which UI elements to update.
     document.getElementById('increment').addEventListener('click', function () {
-      store.patch({ count: store.get().count + 1 });
+      store.set(store.get() + 1);
     });
   </script>
 </body>

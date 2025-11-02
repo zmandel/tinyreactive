@@ -73,20 +73,22 @@ Import the store factory and wire it to your UI code:
 <script type="module">
   import { createStore } from './src/store.module.js';
 
-  const store = createStore({ count: 0 });
+  //create a store with an initial state value of zero.
+  //note: for more complex state, the store can hold state objects like {count: 0, name: 'my counter'}
+  const store = createStore(0);
 
+  //a simple subscription to the whole store.
+  //note: for a more complex state, the subscription could be just to part of the state
   store.subscribe(value => {
     document.querySelector('#count').textContent = value;
-  }, state => state.count);
+  });
 
-  document
-    .querySelector('button')
-    .addEventListener('click', () => store.patch({ count: store.get().count + 1 }));
+  document.querySelector('button').addEventListener('click', () => store.set(store.get().count + 1));
 </script>
 ```
 
 ## Samples
-These `samples` can be run and debug directly from your browser in their published github pages. 
+These `samples` can be run and debug directly from the [demos](#demos) below. 
 
 - [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler only patches the changing field.
 - [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Start by watching the notification panel to observe each subscriber's messages so you can trace how data travels through the store. Independent subscriptions render the list, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted.
