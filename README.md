@@ -26,7 +26,7 @@ Under the hood TinyReactive keeps a `Set` of subscribers. Each subscriber caches
 
 The samples show how these pieces connect:
 
-- [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler merely patches `{ count: count + 1 }`, demonstrating how UI code can ignore DOM bookkeeping.
+- [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler merely patches `{ count: store.get().count + 1 }`, demonstrating how UI code can ignore DOM bookkeeping.
 - [`samples/tasks-app`](samples/tasks-app/) expands the same primitives into a full to-do experience. Independent subscriptions render the list, the summary, filter buttons, and even a notification panel. Each handler patches just the slice of state it owns, while selectors (`state => state.todos`, `state => ({ todos: state.todos, filter: state.filter })`, etc.) ensure that only the relevant DOM is re-rendered. The sample also shows how `store.get()` enables persistence with `localStorage` without breaking the reactive flow.
 
 ## Explore the demos
