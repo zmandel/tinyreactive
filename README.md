@@ -84,12 +84,13 @@ Import the store library (`import`, `require`, or a `<script>`) and wire it to y
   });
 </script>
 ```
+In this case, the state is just a number primitive. When its an object, it detect changes with an internal shallow object comparison of the selector slice, in `valuesEqual(a,b)`.
 
 ## Samples
 These `samples` can be run and debugged directly from the [demos](#demos) below.
 
 - [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler only patches the changing field.
-- [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Start by opening the notification panel (👁️) to view each subscriber's messages and changes travel to UI (subscribers). Independent subscriptions render the lists, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted. 
+- [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Open the notification panel (👁️) in the demo to see log messages for each subscriber update as state changes propagate to the UI. Independent subscriptions render the lists, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted to only what changed. 
 
 <img src="media/tasks-demo.png" alt="Tasks demo preview" width="400">
 
