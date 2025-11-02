@@ -10,7 +10,7 @@ The store code is only 100 lines of vanilla js.
 
 This library is a contribution from my production website [tutorforme.org](https://tutorforme.org).
 
-Fun fact: I first implemented this exact pattern back in 1997 as the very first reactive UI implementation at Microsoft, in the MS Money program, in C++ 😊
+Fun fact: I created and implemented this exact pattern back in 1997 in the very first reactive UI implementation at Microsoft, in the MS Money program, in C++ because I was frustrated with all the code patching needed in the UI whenever the database engine modified data.
 
 ## Table of contents
 - [Why TinyReactive](#why-tinyreactive)
