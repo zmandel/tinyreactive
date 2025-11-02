@@ -19,7 +19,7 @@ It's meant to stay small, for simple and medium-complexity scenarios. For larger
 
 Used in production by [tutorforme.org](https://tutorforme.org).
 
-Fun fact: I first created this pattern in 1997 for Microsoft Money. It had code mixing database with UI updates everywhere, i.e. every time a  `loan` was changed, the same code would call several functions to update the different UI parts that could be displaying loan information, like menus, pages, etc. It was hard to maintain and fragile when UX changes were made. I changed it so each UI component subscribed to the database engine for the changes each cared about.
+Fun fact: I first created this pattern in 1997 for Microsoft Money. It had code mixing database with UI updates everywhere, i.e. every time something changed, the same code would need to call several functions to update the different UI parts that could be displaying that information.
 
 ## Table of contents
 - [Basics](#basics)
