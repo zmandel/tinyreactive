@@ -20,7 +20,7 @@ The store implementation lives in [`src/store.js`](src/store.js) (and an ES modu
 - `get()` exposes the latest snapshot of the state.
 - `set(newState)` replaces the entire state and queues notifications.
 - `patch(partialState)` shallow-merges new values before emitting, letting you update only the fields that changed.
-- `subscribe(callback, selector?)` registers listeners that react to the store. Selectors run against the newest snapshot; if their output has not changed, the callback is skipped.
+- `subscribe(callback, selector?)` registers listeners that react to the store. The callback is invoked immediately with the initial selected value. For subsequent updates, selectors run against the newest snapshot; if their output has not changed, the callback is skipped.
 
 Under the hood TinyReactive keeps a `Set` of subscribers. Each subscriber caches the last value its selector produced, so updates only run when needed. Notifications are deferred with `requestAnimationFrame` (or `queueMicrotask`/`setTimeout` in non-browser contexts), giving you a consistent frame where all mutations have settled before the DOM work occurs. Runtime safety is also part of the lesson: selector or subscriber failures are caught, logged, and automatically unsubscribed so that a single bug does not lock the store.
 
