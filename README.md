@@ -2,7 +2,9 @@
 
 TinyReactive is a very efficient and robust reactive data store that is deliberately small, to help you build reactive websites without needing a complex library, and as a learning resource.
 
-The samples provided can be stepped through with browser devtools (are not minimized or bundled) and the store code is easily inspected, being only 100 lines of vanilla js.
+The samples provided are published un-minimized and un-bundled so you can run and debug with browser devtools without needing a local install.
+
+The store code is only 100 lines of vanilla js.
 
 This library is a contribution from my production website [tutorforme.org](https://tutorforme.org).
 
