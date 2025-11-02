@@ -191,7 +191,7 @@ body[data-app-loading] {
   margin: 0;
   display: block;
   font-size: 1rem;
-  width: fit-content;
+  width: min(100%, fit-content);
 }
 
 .todo-item__text--done {
