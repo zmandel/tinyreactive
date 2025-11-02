@@ -49,7 +49,15 @@ git clone https://github.com/zmandel/tinyreactive.git
 cd tinyreactive
 ```
 
-The project is framework-free; open any HTML file in the [`samples`](samples) directory in your browser or serve the repo with your preferred static file server.
+The project is framework-free; open the minimal demo at [`samples/minimal/index.html`](samples/minimal/index.html) directly in your browser. For richer examples such as [`samples/tasks-app`](samples/tasks-app/), run a local dev server instead:
+
+```sh
+cd samples/tasks-app
+npm install
+npm run dev
+```
+
+Then open the provided local URL in your browser.
 
 ## Usage
 Import the store factory and wire it to your UI code:
