@@ -91,9 +91,10 @@ Import the store factory and wire it to your UI code:
 These `samples` can be run and debug directly from the [demos](#demos) below. 
 
 - [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler only patches the changing field.
-- [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Start by watching the notification panel to observe each subscriber's messages so you can trace how data travels through the store. Independent subscriptions render the list, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted.
+- [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Start by watching the notification panel to observe each subscriber's messages so you can trace how data travels through the store. Independent subscriptions render the list, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted. 
 
-<!-- add a stable anchor so links like [demos](#demos) work reliably -->
+<img src="media/tasks-demo.png" alt="Tasks demo preview" width="300">
+
 <a id="demos"></a>
 ## Demos
 Inspect the running examples directly:
