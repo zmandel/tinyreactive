@@ -1,4 +1,4 @@
-# TinyReactive
+# tinyReactive
 
 A simple, efficient, and robust reactive data store for writing decoupled code. It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
 
@@ -40,7 +40,7 @@ store.set(newState); //replaces the state and queues notifications.
 store.patch(partialState); //shallow merges state and queues notifications.
 store.subscribe(callback, selector?); //registers a listener. The callback runs immediately with the initial selected value and only runs again when that value changes.
 ```
-Internally, TinyReactive keeps a `Set` of subscribers. Each subscriber caches the last value from its selector, so updates fire only when needed. Notifications are deferred with `requestAnimationFrame` (or `queueMicrotask`/`setTimeout` outside the browser) to ensure all mutations settle before DOM work. Selector or subscriber failures are caught, logged, and unsubscribed so a single bug cannot stall the store or provide an inconsistent state.
+Internally, tinyReactive keeps a `Set` of subscribers. Each subscriber caches the last value from its selector, so updates fire only when needed. Notifications are deferred with `requestAnimationFrame` (or `queueMicrotask`/`setTimeout` outside the browser) to ensure all mutations settle before DOM work. Selector or subscriber failures are caught, logged, and unsubscribed so a single bug cannot stall the store or provide an inconsistent state.
 
 ## Getting started
 You can inspect and debug samples directly from the [demos](#demos) in GitHub Pages, or clone the repo:
@@ -96,7 +96,7 @@ These `samples` can be run and debugged directly from the [demos](#demos) below.
 ## Demos
 Inspect the running examples directly:
 
-[TinyReactive on GitHub Pages](https://zmandel.github.io/tinyreactive/)
+[tinyReactive on GitHub Pages](https://zmandel.github.io/tinyreactive/)
 
 Open the devtools, set breakpoints, and watch how state changes travel through selectors into the UI.
 
