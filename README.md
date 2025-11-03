@@ -4,15 +4,15 @@ A simple, efficient, and robust reactive data store to help write decoupled code
 
 It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
 
-A typical case is in frontend development between UI and data dependencies: With a reactive store, UI components describe **what** slice of data they care about, the store notifies them **when** that slice changes, and the UI automatically updates just what it needs, keeping the logic encapsulated on each component.
+A typical case is in frontend development between UI and data dependencies: UI components describe **what** slice of data they care about, the store notifies them **when** that slice changes, keeping the logic encapsulated on each component.
 
 ## Highlights
 - Updates only the UI affected by a state change.
 - No virtual DOM or browser dependency, can be used too for UI-less scenarios.
 - Allows UI subscribers to use existing DOM nodes instead of recreating the component HTML.
-- Batches consecutive updates on the next frame draw (or microtask when outside the browser.)
+- Batches consecutive updates on the next frame draw or microtask.
 - Subscribers always receive a settled state.
-- Works via `import`, `<script type="module">`, or a plain `<script>`.
+- Works via `import` or `<script>`.
 - No runtime dependencies.
 - Core store logic is about 100 lines of code (≈700 B minified and gzipped).
 
