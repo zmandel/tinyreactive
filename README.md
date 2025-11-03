@@ -1,13 +1,12 @@
 # tinyReactive
 
-A simple, efficient, and robust reactive data store for writing decoupled code. It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
+A simple, efficient, and robust reactive data store to help write decoupled code. It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
 
-A typical case is in frontend development between UI and data dependencies. 
-With a reactive store, UI components describe **what** slice of data they care about, the store notifies them **when** that slice changes, and the UI automatically updates just what it needs, each receiving the new data.
+A typical case is in frontend development between UI and data dependencies: With a reactive store, UI components describe **what** slice of data they care about, the store notifies them **when** that slice changes, and the UI automatically updates just what it needs, keeping the logic encapsulated on each component.
 
 ## Highlights
 - Updates only the UI affected by a state change.
-- No virtual DOM or browser dependency, can be used for UI-less scenarios, for example subscribing to online status for background sync.
+- No virtual DOM or browser dependency, can be used too for UI-less scenarios.
 - Allows UI subscribers to use existing DOM nodes instead of recreating the component HTML.
 - Batches consecutive updates on the next frame draw (or microtask when outside the browser.)
 - Subscribers always receive a settled state.
@@ -19,7 +18,7 @@ It's meant to stay small, for simple and medium-complexity scenarios. For larger
 
 Used in production by [tutorforme.org](https://tutorforme.org).
 
-Fun fact: I first created this pattern in 1997 for Microsoft Money. It had code mixing database with UI updates everywhere, i.e. every time something changed, the same code would need to call several functions to update the different UI parts that could be displaying that information.
+Fun fact: I first created this pattern in 1997 for Microsoft Money UI updates from database changes.
 
 ## Table of contents
 - [Basics](#basics)
@@ -92,8 +91,8 @@ In this case, the state is just a number primitive. When its an object, it detec
 ## Samples
 These `samples` can be run and debugged directly from the [demos](#demos) below.
 
-- [`samples/minimal`](samples/minimal/) wires a counter to the store in fewer than 40 lines. The subscription renders the count, and the click handler only patches the changing field.
-- [`samples/tasks-app`](samples/tasks-app/) scales the same primitives into a to-do app. Open the notification panel (👁️) in the demo to see log messages for each subscriber update as state changes propagate to the UI. Independent subscriptions render the lists, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted to only what changed. 
+- [`samples/minimal`](samples/minimal/) wires a counter to UI. The subscription renders the count, and the click handler only sets the new count.
+- [`samples/tasks-app`](samples/tasks-app/) View store events from a notification panel (👁️) as state changes propagate to the UI. Independent subscriptions render the lists, summary, filter buttons, and notification panel. Selectors such as `state => state.todos` keep updates targeted to only what changed. 
 
 <img src="media/tasks-demo.png" alt="Tasks demo preview" width="400">
 
