@@ -10,7 +10,7 @@ A typical case is in frontend development between UI and data dependencies: With
 - Allows UI subscribers to use existing DOM nodes instead of recreating the component HTML.
 - Batches consecutive updates on the next frame draw (or microtask when outside the browser.)
 - Subscribers always receive a settled state.
-- Works via `import`, `<script type="module">`, or a plain `<script>` through the `StoreLib` global.
+- Works via `import`, `<script type="module">`, or a plain `<script>`.
 - No runtime dependencies.
 - Core store logic is about 100 lines of code (≈700 B minified and gzipped).
 
@@ -18,7 +18,7 @@ It's meant to stay small, for simple and medium-complexity scenarios. For larger
 
 Used in production by [tutorforme.org](https://tutorforme.org).
 
-Fun fact: I first created this pattern in 1997 for Microsoft Money UI updates from database changes.
+Fun fact: I first implemented this pattern in 1997 in C++ for "Microsoft Money" reactive UI updates from database changes. It was the first Microsoft program using reactive UI!
 
 ## Table of contents
 - [Basics](#basics)
