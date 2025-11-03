@@ -38,9 +38,10 @@
          * An object exposing snapshot access, mutation helpers, and reactive subscription.
          */
         function createStore(initialState) {
-          let state = initialState;
-          const subscribers = new Set(); // { callback, selector, prev, active }
-          let scheduled = false;
+          var state = initialState;
+          var subscribers = new Set(); // { callback, selector, prev, active }
+          var scheduled = false;
+          var scheduleFn = pickScheduler();
 
           // get current state snapshot.
           // only stable during notifications; otherwise it is the working state.
@@ -127,7 +128,7 @@
           function scheduleNotify() {
             if (scheduled) return;
             scheduled = true;
-            pickScheduler()(runNotifications);
+            scheduleFn(runNotifications);
           }
 
           // choose scheduler depending on environment
