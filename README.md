@@ -1,6 +1,6 @@
 # tinyReactive
 
-A simple, efficient, and robust reactive data store for writing decoupled code. It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
+A simple, efficient, and robust reactive data store to help write decoupled code. It doubles as a learning resource through the provided samples you can run from the GitHub demos or your local clone.
 
 A typical case is in frontend development between UI and data dependencies. 
 With a reactive store, UI components describe **what** slice of data they care about, the store notifies them **when** that slice changes, and the UI automatically updates just what it needs, each receiving the new data.
