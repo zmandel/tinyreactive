@@ -98,6 +98,7 @@
             } catch (err) {
               console.error(err);
               unsubscribe(sub);
+              throw err;
             }
 
             return () => { if (sub.active) unsubscribe(sub); };
