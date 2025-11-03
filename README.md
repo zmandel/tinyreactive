@@ -19,7 +19,7 @@ It's meant to stay small, for simple and medium-complexity scenarios. For larger
 
 Used in production by [tutorforme.org](https://tutorforme.org).
 
-Fun fact: I first created this pattern in 1997 for Microsoft Money UI updates from dstabase changes.
+Fun fact: I first created this pattern in 1997 for Microsoft Money UI updates from database changes.
 
 ## Table of contents
 - [Basics](#basics)
