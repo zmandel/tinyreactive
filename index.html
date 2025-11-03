@@ -21,20 +21,23 @@
 </head>
 <body>
 	<main>
-		<h1>TinyReactive Samples</h1>
-    <p>Code for all samples can be seen from your devtools. Its not minimized or bundled.</p>
+		<h1>tinyReactive Samples</h1>
+    <p>Code for all samples can be seen from browser devtools. Its not minimized or bundled.</p>
 		<section class="samples">
 			<article class="card">
-				<h2>Minimal - <span>simple counter increment</span></h2>
-          <p>Uses the &lt;script&gt; tag inside the HTML, subscribing to counter changes.</p>
+				<h2>Minimal - <span>counter increment</span></h2>
+        <ul>
+          <li>Simple HTML+js imports tinyReactive with &lt;script&gt;.</li>
+          <li>Creates a store with a single counter property, with a single subscription.</li>
+        </ul>
 				<a href="samples/minimal/index.html">Open counter app</a>
 			</article>
 			<article class="card">
 				<h2>Full - <span>tasks app</span></h2>
         <ul>
-          <li>Shows a notifications pane with all the events being dispatched.</li>
+          <li>Notifications pane shows state change events dispatched to subscribers.</li>
           <li>Imports the store as an ES6 module.</li>
-          <li>Saves and restores state from local storage.</li>
+          <li>Saves and restores store state from local storage.</li>
           <li>Subscribes multiple components to different parts of the same state object.</li>
         </ul>
 				<a href="samples/tasks-app/src/index.html">Open tasks app</a>
