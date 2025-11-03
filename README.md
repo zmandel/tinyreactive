@@ -6,7 +6,7 @@ A typical case is in frontend development between UI and data dependencies: With
 
 ## Highlights
 - Updates only the UI affected by a state change.
-- No virtual DOM or browser dependency, can be used for UI-less scenarios, for example subscribing to online status for background sync.
+- No virtual DOM or browser dependency, can be used too for UI-less scenarios.
 - Allows UI subscribers to use existing DOM nodes instead of recreating the component HTML.
 - Batches consecutive updates on the next frame draw (or microtask when outside the browser.)
 - Subscribers always receive a settled state.
