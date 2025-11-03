@@ -11,7 +11,7 @@ With a reactive store, UI components describe **what** slice of data they care a
 - Allows UI subscribers to use existing DOM nodes instead of recreating the component HTML.
 - Batches consecutive updates on the next frame draw (or microtask when outside the browser.)
 - Subscribers always receive a settled state.
-- Works with `import`, `require`, or a `<script>` tag.
+- Works via `import`, `<script type="module">`, or a plain `<script>` through the `StoreLib` global.
 - No runtime dependencies.
 - Core store logic is about 100 lines of code (≈700 B minified and gzipped).
 
@@ -33,6 +33,8 @@ Fun fact: I first created this pattern in 1997 for Microsoft Money. It had code 
 ## Basics
 The store implementation lives in [`src/store.js`](src/store.js) with an ES module wrapper in [`src/store.module.js`](src/store.module.js). The public API is:
 
+Including `src/store.js` with a plain `<script>` tag makes the API available as `StoreLib.createStore(...)`. In module-aware environments use `import { createStore } from './src/store.module.js';`.
+
 ```js
 const store = createStore(initialState); //returns an object with `get`, `set`, `patch`, and `subscribe`.
 
@@ -52,7 +54,7 @@ cd tinyreactive
 ```
 
 The project is framework-free; open the minimal demo from your file explorer at `samples/minimal/index.html` directly in your browser (file:// protocol)
-For richer examples such as [`samples/tasks-app`](samples/tasks-app/), run a local dev server (`import` modules require using http).
+For richer examples such as [`samples/tasks-app`](samples/tasks-app/), run a local dev server (`import` modules need http).
 
 ```sh
 cd samples/tasks-app
@@ -61,7 +63,7 @@ npm run dev
 ```
 
 ## Usage
-Import the store library (`import`, `require`, or a `<script>`) and wire it to your UI code:
+Import the store library (`import` or a `<script>`) and wire it to your UI code:
 
 ```html
 <div id="count"></div>
