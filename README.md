@@ -16,7 +16,7 @@ A typical case is in frontend development between UI and data dependencies: UI c
 - No runtime dependencies.
 - Core store logic is about 100 lines of code (≈700 B minified and gzipped).
 
-It's meant to stay small, for simple and medium-complexity scenarios. For larger-scale frameworks with similar store concepts see [Solid](https://www.solidjs.com/tutorial/introduction_signals), [Preact signals](https://preactjs.com/blog/signal-boosting/), [Vue](https://vuejs.org/guide/introduction.html) etc. 
+It's meant to stay small, for simple and medium-complexity scenarios. For larger-scale frameworks with similar store concepts and more features see [Solid](https://www.solidjs.com/tutorial/introduction_signals), [Preact signals](https://preactjs.com/blog/signal-boosting/), [Vue](https://vuejs.org/guide/introduction.html) etc. 
 
 Used in production by [tutorforme.org](https://tutorforme.org).
 
