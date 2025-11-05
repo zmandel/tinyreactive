@@ -88,7 +88,7 @@ Import the store library (`import` or a `<script>`) and wire it to your UI code:
   });
 </script>
 ```
-In this case, the state is just a number primitive. When its an object, it detect changes with an internal shallow object comparison of the selector slice, in `valuesEqual(a,b)`.
+In this case, the state is just a number primitive. When its an object, it detect changes with an internal shallow object comparison of the selector slice, using the included helper `valuesEqual(a,b)`.
 
 ## Samples
 These `samples` can be run and debugged directly from the [demos](#demos) below.
